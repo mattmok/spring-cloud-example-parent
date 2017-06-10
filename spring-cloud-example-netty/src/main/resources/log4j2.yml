@@ -1,0 +1,36 @@
+Configutation:
+  name: Default
+  status: warn
+  Properties:
+    Property:
+      name: log-path
+      value: "/var/log/bike"
+  Appenders:
+    Console:
+      name: Console-Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{ISO8601} %c{1} - %m%n"
+    RollingFile:
+      name: RollingFile-Appender
+      fileName: "${log-path}/connector.log"
+      filePattern: "${log-path}/connector-%d{yyyy-MM-dd}-%i.log"
+      PatternLayout:
+        pattern: "[%-5level] %d{ISO8601} %m%n"
+      Policies:
+        TimeBasedTriggeringPolicy:
+          modulate: true
+          interval: 24
+        SizeBasedTriggeringPolicy:
+          size: 10 MB
+      DefaultRolloverStrategy:
+        max: 100
+  Loggers:
+      Root:
+        level: WARN
+        AppenderRef:
+          - ref: Console-Appender
+          - ref: RollingFile-Appender
+      Logger:
+        - name: com.tiamaes
+          level: DEBUG

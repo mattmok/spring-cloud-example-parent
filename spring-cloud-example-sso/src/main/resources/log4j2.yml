@@ -1,0 +1,35 @@
+Configutation:
+  name: Default
+  status: warn
+  Properties:
+    Property:
+      name: log-path
+      value: "logs"
+  Appenders:
+    Console:
+      name: Console-Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{ISO8601} %c{1} - %m%n"
+  Loggers:
+      Root:
+        level: INFO
+        AppenderRef:
+          - ref: Console-Appender
+      Logger:
+        - name: com.tiamaes
+          level: INFO
+        - name: com.netflix.discovery
+          level: 'OFF'
+        - name: org.springframework.security
+          level: DEBUG
+        - name: org.springframework.jmx.export.annotation.AnnotationMBeanExporter
+          level: WARN
+        - name: org.springframework.boot.actuate.endpoint.jmx.EndpointMBeanExporter
+          level: WARN
+        - name: org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping
+          level: WARN
+        - name: org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
+          level: WARN
+        - name: org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker
+          level: WARN

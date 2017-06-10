@@ -1,0 +1,45 @@
+server:
+  port: 8700
+  contextPath: /simple
+spring:
+  profiles:
+    active: oauth2
+  application:
+    name: spring-cloud-example-simaple
+  cloud:
+    config:
+      enabled: false
+      uri: http://config.cloud.tiamaes.com:8888
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*
+# Discovery Server Access
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${server.port}
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery.cloud.tiamaes.com:8761/eureka/
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+        info:
+          title: ${spring.application.name} Api Documents
+          description: The Springfox suite of java libraries are all about automating the generation of machine and human readable specifications for JSON APIs written using the spring family of projects.
+          version: 1.1.0

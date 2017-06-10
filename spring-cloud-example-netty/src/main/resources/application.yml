@@ -1,0 +1,7 @@
+spring:
+  netty:
+    tcpPort: 10338
+    bossThreadCount: 2
+    workerThreadCount: 2
+    soKeepalive: true
+    soBacklog: 100

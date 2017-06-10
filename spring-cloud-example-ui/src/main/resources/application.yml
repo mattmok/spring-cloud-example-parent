@@ -1,0 +1,34 @@
+server:
+  port: 8090
+  contextPath: /ui
+spring:
+  aop:
+    proxy-target-class: true
+  kafka:
+    bootstrap-servers: 192.168.57.156:9092
+security:
+  ignored: /,/favicon.ico,/index.html,/home.html,/dashboard.html,/js/**,/css/**,/webjars/**,/video/**,/mpegurl/**
+  user:
+    password: password
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:8000/uaa/oauth/token
+      userAuthorizationUri: http://localhost:8000/uaa/oauth/authorize
+      clientId: acme
+      clientSecret: acmesecret
+    resource:
+      userInfoUri: http://localhost:8000/uaa/user
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+      url: http://localhost:9000
+    user:
+      path: /user/**
+      url: http://localhost:8000/uaa/user
+    video:
+      path: /video/**
+      url: http://192.168.241.217:9126/lskjhlsapp/
+    mpegurl:
+      path: /mpegurl/**
+      url: http://192.168.241.217:8888/lskjhlsapp/
