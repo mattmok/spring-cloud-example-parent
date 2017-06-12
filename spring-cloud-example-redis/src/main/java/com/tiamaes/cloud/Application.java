@@ -15,10 +15,10 @@ public class Application{
 	
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(Application.class, args);
-		if(logger.isDebugEnabled()){
-			logger.debug("Let's inspect the beans provided by Spring Boot:\n");
+		if(logger.isTraceEnabled()()){
+			logger.trace("Let's inspect the beans provided by Spring Boot:\n");
 			String[] array = context.getBeanDefinitionNames();
-			Arrays.stream(array).forEach(bean -> logger.debug(bean));
+			Arrays.stream(array).forEach(bean -> logger.trace(bean));
 		}
 	}
 }
