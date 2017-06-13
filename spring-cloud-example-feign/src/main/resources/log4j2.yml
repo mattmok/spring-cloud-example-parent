@@ -15,5 +15,3 @@ Configutation:
       Logger:
         - name: com.tiamaes
           level: INFO
-        - name: com.netflix.hystrix
-          level: DEBUG

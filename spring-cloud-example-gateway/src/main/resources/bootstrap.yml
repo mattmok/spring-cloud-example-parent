@@ -46,12 +46,3 @@ zuul:
       sensitive-headers:
       stripPrefix: false
       serviceId: spring-cloud-example-feign
-springfox:
-  documentation:
-    swagger:
-      v2:
-        path: /api-docs
-        info:
-          title: ${spring.application.name} Api Documents
-          description: The Springfox suite of java libraries are all about automating the generation of machine and human readable specifications for JSON APIs written using the spring family of projects.
-          version: 1.1.0
