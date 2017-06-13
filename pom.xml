@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
+		<groupId>com.tiamaes.cloud</groupId>
+		<artifactId>tiamaes-cloud-parent</artifactId>
+		<version>1.0.7-SNAPSHOT</version>
 	</parent>
 	<groupId>com.tiamaes</groupId>
 	<artifactId>spring-cloud-example-parent</artifactId>
@@ -28,7 +28,6 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<start-class>com.tiamaes.cloud.Application</start-class>
-		<tiamaes.cloud.version>1.0.7-SNAPSHOT</tiamaes.cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -78,79 +77,12 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Camden.SR6</version>
+				<groupId>com.tiamaes.cloud</groupId>
+				<artifactId>tiamaes-cloud-dependencies</artifactId>
+				<version>1.0.7-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-parent</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-security</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-security-oauth2</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-logger</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-kafka</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-swagger2</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-zuul</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-feign</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-redis</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-mybatis</artifactId>
-				<version>${tiamaes.cloud.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.tiamaes.cloud</groupId>
-				<artifactId>tiamaes-cloud-starter-netty</artifactId>
-				<version>${tiamaes.cloud.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<distributionManagement>
-		<repository>
-			<id>nexus-releases</id>
-			<url>http://192.168.240.114:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus-snapshot</id>
-			<url>http://192.168.240.114:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
