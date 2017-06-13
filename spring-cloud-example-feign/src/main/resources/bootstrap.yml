@@ -3,7 +3,7 @@ server:
   contextPath: /feign
 spring:
   profiles:
-    active: oauth2
+    active: oauth2,swagger
   application:
     name: spring-cloud-example-feign
   cloud:

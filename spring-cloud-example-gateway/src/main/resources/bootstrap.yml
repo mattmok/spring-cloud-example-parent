@@ -3,7 +3,7 @@ server:
   contextPath: /gateway
 spring:
   profiles:
-    active: oauth2
+    active: oauth2,swagger
   application:
     name: spring-cloud-example-gateway
   cloud:
@@ -35,6 +35,7 @@ eureka:
     serviceUrl:
       defaultZone: http://discovery.cloud.tiamaes.com:8761/eureka/
 zuul:
+  ignoredServices: '*'
   routes:
     simple:
       path: /simple/**
