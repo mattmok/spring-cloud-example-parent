@@ -38,4 +38,9 @@ public class HelloController {
 	public @ResponseBody String admin(HttpSession session, @CurrentUser Authentication user) {
 		return "Hello world, " + (user == null ? session.getId() : user.getPrincipal()) + "!";
 	}
+	
+	@RequestMapping(value = "/legacy", method = RequestMethod.GET)
+	public @ResponseBody String legacy() {
+		return "Hello world, legacy !";
+	}
 }

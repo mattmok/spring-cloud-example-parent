@@ -47,3 +47,9 @@ zuul:
       sensitive-headers:
       stripPrefix: false
       serviceId: spring-cloud-example-feign
+    legacy:
+      path: /legacy/**
+      url: http://127.0.0.1:8700/simple/legacy
+    forward:
+      path: /forward/**
+      url: forward:/hello

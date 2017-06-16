@@ -20,4 +20,5 @@ public class HelloController {
 	public @ResponseBody String hello(@CurrentUser Authentication user) {
 		return "Hello world, " + user.getPrincipal() + "!";
 	}
+
 }
