@@ -23,6 +23,7 @@
 		<module>spring-cloud-example-session-feign</module>
 		<module>spring-cloud-example-netty</module>
 		<module>spring-cloud-example-redis</module>
+		<module>spring-cloud-example-security</module>
 	</modules>
 
 	<properties>

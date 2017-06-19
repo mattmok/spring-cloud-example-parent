@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  contextPath: /security
+spring:
+  application:
+    name: spring-cloud-example-security
+security:
+  form:
+    enabled: true
+    login-page: /login.html
+    login-processing-url: /login
+    default-success-url: /index.html
+    parameters:
+      username: username
+      password: password
+
+
