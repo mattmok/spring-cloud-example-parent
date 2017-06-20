@@ -5,6 +5,8 @@ spring:
   application:
     name: spring-cloud-example-security
 security:
+  user:
+    password: password
   form:
     enabled: true
     login-page: /login.html

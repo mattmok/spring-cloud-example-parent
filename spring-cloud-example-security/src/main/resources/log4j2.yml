@@ -16,4 +16,4 @@ Configutation:
         - name: com.tiamaes
           level: INFO
         - name: org.springframework.security
-          level: DEBUG
+          level: WARN
