@@ -1,0 +1,26 @@
+<div class="modal-dialog" role="document">
+	<form ng-action="system/authority/{{user.id}}" name="form2" method="post" autocomplete="off" class="form-horizontal" enctype="application/json" novalidate>
+		<div class="md-content">
+			<div class="index-modal-header">
+				<h6 ng-bind="dialog.title"></h6>
+				<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="nano" style="height:334px;">
+								<div  class="overthrow nano-content">
+									<ul id="dataAuthorityTree" class="ztree"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button">关闭</button>
+			</div>
+		</div>
+	</form>
+</div>

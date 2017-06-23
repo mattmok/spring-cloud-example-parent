@@ -1,0 +1,27 @@
+<html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>天迈科技统一用户认证平台</title>
+</head>
+<body>
+	<div class="container">
+		<h2>Please Confirm2</h2>
+		<p th:text="|Do you authorize 'acme' at 'http://127.0.0.1:8080/gateway/login' to access your protected resources with scope openid.|">
+			Do you authorize "acme" at "http://127.0.0.1:8080/gateway/login" to access your protected resources with scope openid.
+		</p>
+		<form id="confirmationForm" name="confirmationForm" action="../oauth/authorize" method="post">
+			<input name="user_oauth_approval" value="true" type="hidden" />
+			<input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<button class="btn btn-primary" type="submit">Approve</button>
+		</form>
+		<form id="denyForm" name="confirmationForm" action="../oauth/authorize" method="post">
+			<input name="user_oauth_approval" value="false" type="hidden" />
+			<input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<button class="btn btn-primary" type="submit">Deny</button>
+		</form>
+	</div>
+</body>
+</html>

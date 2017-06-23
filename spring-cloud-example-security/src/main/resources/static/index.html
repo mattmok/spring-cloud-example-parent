@@ -1,11 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
-<meta charset="UTF-8">
-<title>login</title>
+<base href="/uaa/">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>天迈科技统一用户认证平台</title>
+<link rel="stylesheet" href="resources/components/zTree/zTreeStyle.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/component.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/nanoscroller.css">
+<link rel="stylesheet" href="resources/components/angularjs/css/angular-select.min.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap-validator.min.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="resources/components/bootstrap/css/fileinput.css" >
+<link rel="stylesheet" href="resources/components/bootstrap/skins/square/blue.css">
+<link rel="stylesheet" href="resources/components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/dashboard.css">
+<link rel='stylesheet' href='resources/components/flowplayer/minimalist.css'>
+<link rel='stylesheet' href='resources/components/flowplayer/flowplayer.quality-selector.css'>
+<style type="text/css">
+.nav-tabs-project li.active a {
+	background-color: #1B3045;
+	color: #FFFFFF;
+	border: 1px solid #ddd;
+}
+</style>
+<script src="resources/components/js/jquery.min.js"></script>
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="resources/css/ie8/dashboard.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+<script src="resources/components/angularjs-IE8/angular.js"></script>
+<script>
+	document.createElement('ng-view');
+</script>
+<style type="text/css">    
+    .ng-hide {
+        display: none !important;
+    }
+</style>
+<![endif]-->
+<!--[if gt IE 9]>
+<script src="resources/components/angularjs/angular.min.js"></script>
+<![endif]-->
+<!-- [if !IE]><!-->
+<script src="resources/components/angularjs/angular.min.js"></script>
+<!-- <![endif]> -->
+<script src="resources/components/js/stomp.js"></script>
+<script src="resources/components/js/sockjs.min.js"></script>
+<script src="resources/components/js/clipboard.min.js"></script>
+<script src="resources/components/bootstrap/js/jquery.nanoscroller.min.js"></script>
+<script src="resources/components/bootstrap/js/overthrow.min.js"></script>
+<script src="resources/components/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/components/bootstrap/js/fileinput.js"></script>
+<script src="resources/components/bootstrap/js/icheck.min.js"></script>
+<script src="resources/components/bootstrap/js/fileinput_locale_zh.js"></script>
+<script src="resources/components/bootstrap/js/jquery.modalEffects.js"></script>
+<script src="resources/components/zTree/jquery.ztree.all-3.5.min.js"></script>
+<script src="resources/components/zTree/jquery.ztree.exhide-3.5.min.js"></script>
+<script src="resources/components/angularjs/angular-route.js"></script>
+<script src="resources/components/angularjs/angular-cookies.min.js"></script>
+<script src="resources/components/angularjs/angular-animate.min.js"></script>
+<script src="resources/components/angularjs/angular-sanitize.min.js"></script>
+<script src="resources/components/angularjs/angular-resource.min.js"></script>
+<script src="resources/components/angularjs/angular-locale_zh-cn.js"></script>
+<script src="resources/components/angularjs/angular-select.min.js"></script>
+<script src="resources/components/angularjs/angular-validate.min.js"></script>
+<script src="resources/components/angularjs/angular-local-storage.min.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.copy.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.dialog.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.pagination2.js"></script>
+<!-- <script src='resources/components/flowplayer/flowplayer.min.js'></script>
+<script src='resources/components/flowplayer/flowplayer.hlsjs.min.js'></script>
+<script src='resources/components/flowplayer/flowplayer.quality-selector.min.js'></script> -->
+<script src="resources/components/angularjs/require.js" data-main="bootstrap"></script>
+
 </head>
-<body>
-<p>Hello, world!</p>
-<p><a href="logout">logout</a></p>
+<body ng-controller="InitController">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-top-header">
+				<ul class="navbar-right">
+					<li><a href="javascript:;"><span class="glyphicon glyphicon-user icon"></span>&nbsp;<span ng-bind="operator.nickname"></span></a></li>
+					<li><a href="javascript:;" ng-click="viewFiles()" id="taskDialogLink"><span class="glyphicon glyphicon-download-alt icon"></span>&nbsp;<span>导出文件</span></a></li>
+					<li><a href="system/user/passwd.html"><span class="glyphicon glyphicon-pencil icon"></span>&nbsp;<span>修改密码</span></a></li>
+					<li><a href="logout" target="_self" ng-click="$destroy()"><span class="glyphicon glyphicon-off icon"></span>&nbsp;安全退出</a></li>
+				</ul>
+			</div>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="{{width < 768?'collapse':''}}" data-target="#bs-example-navbar-collapse-1"
+			 		aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="javascript:;" ng-click="jump()" style="padding:20px 15px;"><img alt="brand" src="resources/images/52d15b16.png"></a>
+			</div>
+			<div class="navbar-collapse collapse pull-right" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav" id="navbar-index">
+					<li ng-repeat="menu in menus track by $index"
+						ng-click="activeItem($event)"
+						ng-class="{'active':$index == 0 && menu.children.length == 0,'dropdown':menu.children.length > 0}">
+						<a data-toggle="{{width < 768?'collapse':''}}" 
+							data-target="#bs-example-navbar-collapse-1"
+							aria-expanded="false" ng-href="{{menu.path}}" ng-if="menu.children.length == 0 && menu.path.substring(0,4) ==='http'" target="_blank">
+							<!-- 
+							 <img alt="" ng-src="{{menu.ico||'resources/images/index.png'}}">
+							 -->
+							<span ng-bind="menu.name"></span>
+						</a>
+						<a data-toggle="{{width < 768?'collapse':''}}" 
+							data-target="#bs-example-navbar-collapse-1"
+							aria-expanded="false" ng-href="{{menu.path}}" ng-if="menu.children.length == 0 && menu.path.substring(0,4) !=='http'">
+							<!-- 
+							<img style="" alt="" ng-src="{{menu.ico||'resources/images/index.png'}}">
+							 -->
+							<span ng-bind="menu.name"></span>
+						</a>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" ng-if="menu.children.length > 0">
+							<!-- 
+							<img alt="" ng-src="{{menu.ico||'resources/images/index.png'}}">
+							 -->
+							<span ng-bind="menu.name"></span>
+						</a>
+						<ul class="dropdown-menu" ng-if="menu.children.length > 0">
+							<li data-toggle="{{width < 768?'collapse':''}}" 
+								data-target="#bs-example-navbar-collapse-1"
+								aria-expanded="false"
+								ng-repeat="child in menu.children" ng-class="{'dropdown-submenu':child.children.length > 0}">
+								<a ng-href="{{child.path}}">{{child.name}}</a>
+								<ul class="dropdown-menu" ng-if="child.children.length > 0">
+									<li data-toggle="{{width < 768?'collapse':''}}" 
+										data-target="#bs-example-navbar-collapse-1"
+										aria-expanded="false" 
+										ng-repeat="subchild in child.children"><a ng-href="{{subchild.path}}">{{subchild.name}}</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="wrapper">
+		<div class="content-container">
+			<div class="nano" ng-style="{'height': height}" ng-if="width > 798">
+				<div class="overthrow nano-content">
+					<div ng-view ng-style="{'min-height': height}"></div>
+				</div>
+				<div class="nano-pane">
+					<div class="nano-slider"></div>
+				</div>
+			</div>
+			<div ng-view ng-style="{'min-height': height,'width': width}" ng-if="width < 798"></div>
+		</div>
+	</div>
+	<confrim></confrim>
 </body>
 </html>

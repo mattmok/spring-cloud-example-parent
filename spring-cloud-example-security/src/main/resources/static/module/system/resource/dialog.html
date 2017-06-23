@@ -1,0 +1,65 @@
+<div class="modal-dialog" role="document">
+	<form action="{{dialog.action||''}}" name="form" method="post" autocomplete="off" class="form-horizontal" enctype="application/json" novalidate>
+		<div class="md-content">
+			<div class="index-modal-header">
+				<h6 ng-bind="dialog.title"></h6>
+				<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">资源名称</label>
+					<div class="col-sm-10"
+						ng-class="{'has-error': form.name.$invalid && !form.name.$pristine, 'has-success':form.name.$valid && !form.name.$pristine}">
+						<div ng-if="dialog.editabled">
+							<input type="text" class="form-control input-sm" name="name"
+								ng-model="dialog.data.name" placeholder="请输入资源名称"
+								required>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.name"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">资源路径</label>
+					<div class="col-sm-10"
+						ng-class="{'has-error': form.path.$invalid && !form.path.$pristine, 'has-success':form.path.$valid && !form.path.$pristine}">
+						<div ng-if="dialog.editabled">
+							<input type="text" class="form-control input-sm" name="path"
+								ng-model="dialog.data.path" placeholder="请输入资源路径" required>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.path"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">资源序号</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.orderNo.$invalid && !form.orderNo.$pristine, 'has-success':form.orderNo.$valid && !form.orderNo.$pristine}">
+						<div ng-if="dialog.editabled">
+							<input type="text" class="form-control input-sm" name="orderNo" ng-model="dialog.data.orderNo" placeholder="请输入资源序号" required>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.orderNo"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">资源图标</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.ico.$invalid && !form.ico.$pristine, 'has-success':form.ico.$valid && !form.ico.$pristine}">
+						<div ng-if="dialog.editabled">
+							<input type="text" class="form-control input-sm" name="email" ng-model="dialog.data.ico" placeholder="请输入资源图标路径" required>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.ico"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button">取消</button>
+				<button class="btn btn-primary btn-flat" type="submit" ng-click="dialog.submit($event)" ng-if="dialog.editabled">确定</button>
+			</div>
+		</div>
+	</form>
+</div>

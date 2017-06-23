@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+<p>字符串替换：</p>
+<p th:text="'Hello, ' + ${name} + '!'">Hello, world!</p>
+<p th:text="|Hello, ${name}!|">Hello, world!</p>
+
+<p>URL:</p>
+<a href="#" th:href="@{http://www.baidu.com}">百度</a>
+<a href="#" th:href="@{/hello}">hello</a>
+<a href="#" th:href="@{/hello(id=${name})}">hello</a>
+<a href="#" th:href="@{/hello/{id}(id=${name})}">hello</a>
+
+<p>表达式:</p>
+<p th:text="${name} == 'world'?100:1000">10</p>
+<p th:text="${name} != 'world'?100:1000">10</p>
+<p th:text="5 &gt; 6?100:1000">10</p>
+<p th:text="5 &lt; 6?100:1000">10</p>
+<p th:text="5 &gt;= 6?100:1000">10</p>
+<p th:text="5 &lt;= 6?100:1000">10</p>
+
+<p>循环:</p>
+<ul th:each="item: ${items}">
+	<li th:text="${item}"></li>
+</ul>
+
+<p>条件求值：</p>
+<a href="#" th:if="${name} != null">显示</a>
+<a href="#" th:unless="${name} == null">隐藏</a>
+
+<p>切换</p>
+<div th:switch="${name}">
+	<p th:case='world'>Name is world</p>
+	<p th:case='spring'>Name is spring</p>
+	<p th:case='*'>Name is other</p>
+</div>
+
+<p>时间格式化：</p>
+<p><span th:text="${#dates.format(date, 'yyyy-MM-dd HH:mm:ss')}">2017-06-20 18:00:00</span></p>
+<p><span th:text="${#dates.format(#dates.createToday(), 'yyyy-MM-dd HH:mm:ss')}">2017-06-20 18:00:00</span></p>
+<p><span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}">2017-06-20 18:00:00</span></p>
+
+<p>数字格式化：</p>
+<p><td th:text="${#numbers.formatDecimal(100.813213132131, 1, 2)}">0.99</td></p>
+<p><td th:text="${#numbers.formatDecimal(10.0, 1, 2)}">0.99</td></p>
+</body>
+</html>

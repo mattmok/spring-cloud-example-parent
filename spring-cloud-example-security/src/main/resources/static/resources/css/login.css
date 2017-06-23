@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	background-color: #0170a4 !important;
+}
+
+.container-fluid.login-container > .row {
+	background-image: url("../images/11002.png");
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.container-fluid.login-container > .row .middle-login {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 600px;
+	height: 400px;
+	margin-left: -300px;
+	margin-top: -200px;
+}
+.container-fluid.login-container>.row .middle-login>.text-center {
+	width: inherit;
+	height: 202px;
+	margin-top: 198px;
+	padding: 0 20px;
+}
+
+.container-fluid.login-container .form-group {
+    margin-bottom: 22px;
+	margin-left: 0;
+	margin-right: 0;
+}
+}
+.container-fluid.login-container .form-group.valication .form-control-feedback{
+	right: 75px;
+}
+.container-fluid.login-container .input-group-addon{
+	border: none;
+	font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	letter-spacing: 0.2em;
+	background: none;
+}
+.container-fluid.login-container .input-group-addon.valication{
+	padding: 0 2px;
+	width: 64px;
+	height: 34px;
+}
+
+.container-fluid.login-container .input-group-addon.valication img{
+	height: 34px;
+	cursor: pointer;
+}
+.container-fluid.login-container .input-group .form-control:last-child{
+	border-radius: 0;
+}

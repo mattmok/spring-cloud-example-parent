@@ -1,12 +1,23 @@
 server:
-  port: 8080
-  contextPath: /security
+  port: 8000
+  contextPath: /uaa
 spring:
   application:
     name: spring-cloud-example-security
+  datasource:
+    url: jdbc:mysql://192.168.32.124:3306/authority?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: tmkj@zgb123
+    driver-class-name: com.mysql.jdbc.Driver
 security:
-  user:
-    password: password
+  ignored:
+  - /resources/**
+  oauth2:
+    client:
+      client-id: acme
+      client-secret: acmesecret
+      scope: openid
+      authorized-grant-types: authorization_code,refresh_token,password
   form:
     enabled: true
     login-page: /login.html
@@ -15,5 +26,3 @@ security:
     parameters:
       username: username
       password: password
-
-

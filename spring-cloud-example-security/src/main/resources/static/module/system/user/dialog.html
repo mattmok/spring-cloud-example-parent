@@ -1,0 +1,100 @@
+<div class="modal-dialog" role="document">
+	<form action="#" name="form" method="post" autocomplete="off" class="form-horizontal" enctype="application/json" novalidate>
+		<div class="md-content">
+			<div class="index-modal-header">
+				<h6 ng-bind="dialog.title"></h6>
+				<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">登录名称</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.username.$invalid, 'has-success':form.username.$valid}">
+						<div ng-if="dialog.editabled && dialog.increased">
+							<input type="text" class="form-control input-sm" name="username"
+								ng-model="dialog.data.username" placeholder="请输入用户名称" required
+								ui-validate-async="{alreadyExists: 'dialog.validateUsername($modelValue)'}"
+								ng-model-options="{debounce: 100}">
+						</div>
+						<p ng-if="!dialog.editabled || !dialog.increased">
+							<span ng-bind="dialog.data.username"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属角色</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.authorities.$invalid, 'has-success':form.authorities.$valid}">
+						<div ng-if="dialog.editabled">
+							<ui-select multiple ng-model="dialog.data.authorities" theme="bootstrap" title="{{$item.alias}}" ng-if="dialog.editabled">
+								<ui-select-match placeholder="选择所属角色">{{$item.alias}}</ui-select-match>
+								<ui-select-choices position="down" repeat="item in dialog.roles track by item.authority">
+									<div ng-bind-html="item.alias"></div>
+								</ui-select-choices>
+							</ui-select>
+							<input type="hidden" name="authorities" ng-model="dialog.data.authorities[0].authority" required>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-repeat="role in dialog.data.authorities track by $index">
+								<font ng-bind="role.alias"></font>
+							</span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" ng-if="true === false">
+					<label class="col-sm-2 control-label">手机号码</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.mobile.$invalid, 'has-success':form.mobile.$valid}">
+						<div ng-if="dialog.editabled">
+							<input type="text" class="form-control input-sm" name="mobile"
+								ng-model="dialog.data.mobile" placeholder="请输入手机号码" ng-minlength="11" ng-maxlength="11">
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.mobile"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">用户姓名</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.nickname.$invalid, 'has-success':form.nickname.$valid}">
+						<div ng-if="dialog.editabled">
+						<input type="text" class="form-control input-sm" name="nickname"
+							ng-model="dialog.data.nickname" placeholder="请输入用户姓名" required>
+					</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.nickname"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" ng-if="true === false">
+					<label class="col-sm-2 control-label">电子邮箱</label>
+					<div class="col-sm-10" ng-class="{'has-error': form.email.$invalid && !form.email.$pristine, 'has-success':form.email.$valid && !form.email.$pristine}">
+						<div ng-if="dialog.editabled">
+							<input type="email" class="form-control input-sm" name="email" ng-model="dialog.data.email" placeholder="请输入电子邮箱">
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.email"></span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">显示方式</label>
+					<div class="col-sm-10">
+						<div ng-if="dialog.editabled">
+							<ui-select ng-model="dialog.data.setting.displayName" theme="bootstrap" title="{{$select.selected.name}}" ng-if="dialog.editabled">
+								<ui-select-match placeholder="车号显示方式">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices position="down" repeat="item in dialog.displayNames track by item.index">
+									<div ng-bind-html="item.name"></div>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+						<p ng-if="!dialog.editabled">
+							<span ng-bind="dialog.data.setting.displayName.name"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button">取消</button>
+				<button class="btn btn-primary btn-flat" type="button" ng-click="dialog.submit($event)" ng-disabled="form.$invalid" ng-if="dialog.editabled">确定</button>
+			</div>
+		</div>
+	</form>
+</div>

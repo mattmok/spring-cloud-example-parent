@@ -1,0 +1,76 @@
+<div class="modal-dialog" role="document">
+	<form action="{{dialog.action||''}}" name="form" method="post" autocomplete="off" class="form-horizontal" enctype="application/json" novalidate>
+		<div class="md-content">
+			<div class="index-modal-header">
+				<h6 ng-bind="dialog.title"></h6>
+				<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">角色名称</label>
+								<div class="col-sm-9" ng-class="{'has-error': form.authority.$invalid, 'has-success':form.authority.$valid}">
+									<div ng-if="dialog.increased">
+										<input type="text" class="form-control input-sm" name="authority" ng-model="dialog.data.authority" placeholder="角色名称必须为字母或数字" required>
+									</div>
+									<p ng-if="!dialog.increased">
+										<span ng-bind="dialog.data.authority"></span>
+									</p>
+								</div>
+							</div>
+							<div class="form-group" hidden="true">
+								<div ng-if="dialog.editabled">
+									<input type="text" class="form-control input-sm" name="id" ng-model="dialog.data.id">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">所属类别</label>
+								<div class="col-sm-9">
+									<div ng-if="dialog.editabled">
+										<ui-select ng-model="dialog.data.type" theme="bootstrap" title="{{$select.selected.name}}">
+											<ui-select-match placeholder="选择所属类别">{{$select.selected.name}}</ui-select-match>
+											<ui-select-choices position="down" repeat="item in dialog.roleTypes track by $index">
+												<span ng-bind="item.name"></span>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+									<p ng-if="!dialog.editabled">
+										<span ng-bind="dialog.data.type.name"></span>
+									</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">角色别名</label>
+								<div class="col-sm-9" ng-class="{'has-error': form.alias.$invalid, 'has-success':form.alias.$valid}">
+									<div ng-if="dialog.editabled">
+										<input type="text" class="form-control input-sm" name="alias" ng-model="dialog.data.alias" placeholder="使用中文别名以方便区分角色" required>
+									</div>
+									<p ng-if="!dialog.editabled">
+										<span ng-bind="dialog.data.alias"></span>
+									</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">角色备注</label>
+								<div class="col-sm-9">
+									<div ng-if="dialog.editabled">
+										<textarea class="form-control" rows="3" name="remarks" ng-model="dialog.data.remarks" placeholder="请输入角色备注以标识角色的特性，适用人群等"></textarea>
+									</div>
+									<p ng-if="!dialog.editabled">
+										<span ng-bind="dialog.data.remarks"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button">取消</button>
+				<button class="btn btn-primary btn-flat" type="submit" ng-click="dialog.submit($event)" ng-if="dialog.editabled">确定</button>
+			</div>
+		</div>
+	</form>
+</div>

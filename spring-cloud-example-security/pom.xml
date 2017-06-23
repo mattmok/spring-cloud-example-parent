@@ -13,5 +13,17 @@
 			<groupId>com.tiamaes.cloud</groupId>
 			<artifactId>tiamaes-cloud-starter-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.tiamaes.cloud</groupId>
+			<artifactId>tiamaes-cloud-starter-security-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.tiamaes.cloud</groupId>
+			<artifactId>tiamaes-cloud-starter-mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,0 +1,6 @@
+<ul class="dropdown-menu" ng-show="isOpen" style="display:block;padding-top: 0;padding-bottom: 0;" ng-style="{top: position.top+'px', left: position.left+'px'}" ng-keydown="keydown($event)" ng-click="$event.stopPropagation()">
+	<li ng-transclude class="datepicker"></li>
+	<li ng-if="showButtonBar" style="padding:10px 9px 2px">
+		<button type="button" class="btn btn-sm btn-success pull-right" ng-click="close()">关闭</button>
+	</li>
+</ul>

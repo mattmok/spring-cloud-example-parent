@@ -5,11 +5,15 @@ import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 @SpringBootApplication
+@EnableAuthorizationServer
+@MapperScan("com.tiamaes.cloud.**.persistence")
 public class Application{
 	private static Logger logger = LogManager.getLogger(Application.class);
 	
@@ -21,30 +25,4 @@ public class Application{
 			Arrays.stream(array).forEach(bean -> logger.trace(bean));
 		}
 	}
-	
-	
-//	@Bean
-//	public AuthenticationSuccessHandler successHandler() {
-//		return new AuthenticationSuccessHandler() {
-//
-//			@Override
-//			public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
-//					throws IOException, ServletException {
-//				//TODO your code
-//			}
-//		};
-//	}
-//	
-//	@Bean
-//	public AuthenticationFailureHandler failureHandler() {
-//		return new AuthenticationFailureHandler() {
-//
-//			@Override
-//			public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-//					AuthenticationException exception) throws IOException, ServletException {
-//				// TODO your code
-//			}
-//
-//		};
-//	}
 }

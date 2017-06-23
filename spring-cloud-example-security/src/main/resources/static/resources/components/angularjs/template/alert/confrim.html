@@ -1,0 +1,20 @@
+<div class="md-modal colored-header md-effect-11" ng-class="$confrim.type" style="width: 40%;height: initial;z-index:2002;">
+	<div class="md-content">
+		<div class="modal-header">
+			<h6 ng-bind="$confrim.title"></h6>
+			<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
+		</div>
+		<div class="modal-body">
+			<div class="text-center">
+				<div class="i-circle" ng-class="$confrim.type">
+					<i class="fa" ng-class="$confrim.iconType" ng-class="$confrim.iconType"></i>
+				</div>
+				<h5 ng-bind="$confrim.content"></h5>
+			</div>
+		</div>
+		<div class="modal-footer" ng-show="$confrim.callback !== undefined">
+			<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button" ng-show="$confrim.callback !== undefined">取消</button>
+			<button class="btn btn-flat md-close" ng-class="$confrim.btnType" data-dismiss="modal" type="button" ng-show="$confrim.callback !== undefined" ng-click="$confrim.callback()">确定</button>
+		</div>
+	</div>
+</div>

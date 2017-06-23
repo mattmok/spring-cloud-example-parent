@@ -1,0 +1,27 @@
+@charset "UTF-8";
+body{
+	margin-top: 10px;
+}
+.navbar-header{
+	float: left;
+}
+.collapse{
+	display: block;
+	visibility: visible;
+	float: left;
+	width: 700px;
+	border: none;
+}
+
+.collapse .nav > li{
+	float: left;
+}
+.nav.navbar-nav:first-child{
+	float: left;
+	width: 590px;
+}
+.navbar-default .navbar-right.navbar-nav{
+	margin-top: 15px;
+	float: right;
+	width: 100px;
+}

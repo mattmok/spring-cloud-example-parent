@@ -1,0 +1,62 @@
+<table role="grid" aria-labelledby="{{::uniqueId}}-title" aria-activedescendant="{{activeDateId}}">
+  <thead>
+    <tr>
+      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>
+      <th colspan="{{::4 + showWeeks}}"><button id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>
+      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>
+    </tr>
+    <tr>
+      <th ng-repeat="label in ::weekNumbers track by $index" class="text-center"><span aria-label="{{::label}}">{{::label}}</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in rows track by $index">
+      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{::dt.uid}}" ng-class="::dt.customClass">
+        <button type="button" style="min-width:100%;" class="btn btn-default btn-sm" ng-class="{'btn-info': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{'text-muted': dt.secondary, 'text-info': dt.current}" ng-bind="dt.label"></span></button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot ng-show="::isActiveTime">
+  	<tr>
+  		<td colspan="{{::6 + showWeeks}}">
+	  		<div class="text-center datepicker">
+				<div class="input-group">
+					<input type="text" name="hoursOfDay" class="form-control" ng-model="datepicker.hoursOfDay">
+					<div class="input-group-btn">
+						<button class="btn btn-default btn-block dropup" type="button" ng-click="changeSeconds(-3600)">
+							<span class="caret"></span>
+						</button>
+						<button class="btn btn-default btn-block" type="button" ng-click="changeSeconds(3600)">
+							<span class="caret"></span>
+						</button>
+					</div>
+				</div>
+				<span>:</span>
+				<div class="input-group">
+					<input type="text" name="minutesOfDay" class="form-control" ng-model="datepicker.minutesOfDay">
+					<div class="input-group-btn">
+						<button class="btn btn-default btn-block dropup" type="button" ng-click="changeSeconds(-60)">
+							<span class="caret"></span>
+						</button>
+						<button class="btn btn-default btn-block" type="button" ng-click="changeSeconds(60)">
+							<span class="caret"></span>
+						</button>
+					</div>
+				</div>
+				<span>:</span>
+				<div class="input-group">
+					<input type="text" name="secondsOfDay" class="form-control" ng-model="datepicker.secondsOfDay">
+					<div class="input-group-btn">
+						<button class="btn btn-default btn-block dropup" type="button" ng-click="changeSeconds(-1)">
+							<span class="caret"></span>
+						</button>
+						<button class="btn btn-default btn-block" type="button" ng-click="changeSeconds(1)">
+							<span class="caret"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+  		</td>
+  	</tr>
+  </tfoot>
+</table>

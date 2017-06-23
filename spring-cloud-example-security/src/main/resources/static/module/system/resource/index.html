@@ -1,0 +1,62 @@
+<div ng-controller="ResourceController" ng-cloak>
+	<ol class="breadcrumb">
+	  <li>系统管理</li>
+	  <li class="active">资源管理</li>
+	</ol>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row" style="margin-bottom:10px;">
+					<div class="col-md-12 text-right">
+						<div class="btn-group add-btn" role="group" aria-label="...">
+							<button type="button" class="btn btn-success btn-sm"
+								ng-click="dialogShow($event)"
+								data-title="新建资源"
+								data-action="authority/resource"
+								data-editabled="true">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								<span>新建资源</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-bordered table-condensed table-hover">
+						<thead>
+							<tr>
+								<td width="200">资源名称</td>
+								<td>资源路径</td>
+								<td width="210">资源图片</td>
+								<td width="130">资源序号</td>
+								<td width="170">操作</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="value in list track by $index ">
+								<td ng-style="{'padding-left': 5 + 18 * value.rank}" ng-bind="value.name"></td>
+								<td ng-bind="value.path"></td>
+								<td ng-bind="value.ico"></td>
+								<td ng-bind="value.orderNo"></td>
+								<td>
+									<a ng-click="dialogShow($event)"
+										ng-href="authority/resource/child/{{value.id}}"
+										data-title="新建子资源"
+										data-editabled="true">新建子资源</a>
+									<a ng-click="dialogShow($event, value)"
+										data-title="资源详情"
+										ng-href="authority/resource/{{value.id}}">详情</a>
+									<a ng-click="dialogShow($event, value, $index)"
+										data-title="修改资源"
+										data-editabled="true"
+										ng-href="authority/resource/{{value.id}}">编辑</a>
+									<a ng-click="deleteObj($event, value, $index)" ng-href="authority/resource/{{value.id}}">删除</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div dialog="dialog" template-url="module/system/resource/dialog.html"></div>
+</div>

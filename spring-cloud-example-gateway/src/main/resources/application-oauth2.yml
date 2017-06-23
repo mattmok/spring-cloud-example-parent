@@ -8,7 +8,7 @@ security:
       accessTokenUri: http://localhost:8000/uaa/oauth/token
       userAuthorizationUri: http://localhost:8000/uaa/oauth/authorize
       clientId: acme
-      clientSecret: acmesecret
+      clientSecret: a2105a35b309f5cf072dfe2a8c7ac233720ce04052741b9db5b1e595cc88ba4bb3c8534dca985b41
     resource:
       jwt:
         keyValue: |

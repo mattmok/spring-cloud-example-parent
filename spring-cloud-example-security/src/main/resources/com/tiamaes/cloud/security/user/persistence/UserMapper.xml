@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiamaes.cloud.security.user.persistence.UserMapper">
+	<resultMap id="MutableUser" type="com.tiamaes.cloud.security.user.bean.MutableUser">
+		<id column="username" property="username" javaType="String"/>
+		<result column="nickname" property="nickname" javaType="String"/>
+		<result column="createDate" property="createDate"/>
+		<collection property="authorities" ofType="com.tiamaes.security.core.DefaultGrantedAuthority">
+			<constructor>
+				<idArg column="authority" javaType="String"/>
+				<arg column="alias" javaType="String"/>
+			</constructor>
+		</collection>
+	</resultMap>
+	<resultMap id="User" type="com.tiamaes.security.core.userdetails.User">
+		<id column="username" property="username" javaType="java.lang.String"/>
+		<result column="password" property="password" javaType="java.lang.String"/>
+		<collection property="authorities" ofType="com.tiamaes.security.core.DefaultGrantedAuthority">
+			<constructor>
+				<idArg column="authority" javaType="java.lang.String" />
+			</constructor>
+		</collection>
+	</resultMap>
+	
+	<select id="loadUserDetailByUsername" parameterType="String" resultMap="User">
+	<![CDATA[
+		SELECT 
+		    T.username, T.password, T.mobile, T.email, T.enabled,
+		    R.authority, R.alias
+		FROM TM_USERS T 
+		INNER JOIN TM_USER_ROLES UR ON UR.userid = T.username
+		INNER JOIN TM_ROLES R ON R.authority = UR.authority
+		WHERE T.username = #{username}
+	]]>
+	</select>
+	<!-- 查询用户列表 -->
+	<select id="getAllMutableUsers" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser" resultMap="MutableUser">
+		SELECT 
+		    T.username, T.nickname, T.mobile, T.email, T.createDate, T.enabled,
+		    R.authority, R.alias 
+		FROM TM_USERS T 
+		LEFT JOIN TM_USERS_INFO I ON I.id = T.username
+		LEFT JOIN TM_USER_ROLES U ON U.userid = T.username
+		LEFT JOIN TM_ROLES R ON R.authority = U.authority
+		<where>
+			<if test="username != null and username != ''">
+		    T.username = #{username, jdbcType=VARCHAR}
+			</if>
+			<if test="nickname != null and nickname != ''">
+		    AND T.nickname LIKE CONCAT('%',CONCAT(#{nickname,jdbcType=VARCHAR},'%'))
+			</if>
+			<if test="mobile != null and mobile != ''">
+		    AND T.mobile LIKE CONCAT('%',CONCAT(#{mobile, jdbcType=VARCHAR},'%'))
+			</if>
+			<if test="email != null and email != ''">
+		    AND T.email LIKE CONCAT('%',CONCAT(#{email, jdbcType=VARCHAR},'%'))
+			</if>
+			<if test="authorities != null and authorities.size > 0 and authorities[0].authority!=null">
+		    AND U.authority = #{authorities[0].authority, jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY T.CREATEDATE DESC, T.USERNAME
+	</select>
+</mapper>

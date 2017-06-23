@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 public class HelloController {
 	
 	
-	@PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
+	@PreAuthorize("hasRole('DEVELOPER') OR hasRole('USER')")
 	@ApiOperation(value = "hello value", notes = "hello notes", response = String.class)
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public @ResponseBody String hello(HttpSession session, @CurrentUser Authentication user) {

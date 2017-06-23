@@ -14,6 +14,6 @@ Configutation:
           - ref: Console-Appender
       Logger:
         - name: com.tiamaes
-          level: INFO
+          level: DEBUG
         - name: org.springframework.security
           level: WARN
