@@ -1,0 +1,52 @@
+<div ng-controller="UserPasswdController" ng-cloak>
+	<ol class="breadcrumb">
+		<li>个人中心</li>
+		<li class="active">修改密码</li>
+	</ol>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-offset-4 col-md-4">
+				<form name="form" method="post" autocomplete="off" enctype="application/json" class="form-horizontal" novalidate>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12" 
+							ng-class="{'has-error': form.oldpasswd.$invalid, 'has-success':form.oldpasswd.$valid}">
+							<div class="input-group">
+								<span class="input-group-addon"><font style="letter-spacing: .5em;">原</font><font style="letter-spacing: .5em;">密</font>码</span>
+								<input type="password" class="form-control" ng-model="userpasswd.oldpasswd" name="oldpasswd" required>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12" 
+							ng-class="{'has-error': form.newpasswd.$invalid, 'has-success':form.newpasswd.$valid}">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<font style="letter-spacing: .5em;">新</font><font style="letter-spacing: .5em;">密</font>码
+								</span> 
+								<input type="password" class="form-control" ng-model="userpasswd.newpasswd" name="newpasswd"
+									required ui-validate="'$value!==userpasswd.oldpasswd'" ui-validate-watch="'userpasswd.oldpasswd'">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12"
+							ng-class="{'has-error': form.confirmpasswd.$invalid, 'has-success':form.confirmpasswd.$valid}">
+							<div class="input-group">
+								<span class="input-group-addon">确认密码</span>
+								<input type="password" class="form-control" ng-model="userpasswd.confirmpasswd" name="confirmpasswd" 
+									required ui-validate="'$value==userpasswd.newpasswd'" ui-validate-watch="'userpasswd.newpasswd'">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-12">
+							<button class="btn btn-large btn-success btn-block" type="submit" ng-click="submit($event)" ng-disabled="form.$invalid">
+								<font style="letter-spacing: 1em;">确</font>定
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

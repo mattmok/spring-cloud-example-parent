@@ -8,111 +8,97 @@
 <link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap-validator.min.css">
-<link rel="stylesheet" href="resources/css/login-new.css">
+<link rel="stylesheet" href="resources/css/login.css">
 <script src="resources/components/js/jquery.min.js"></script>
 <script src="resources/components/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/components/bootstrap/js/bootstrap-validator.min.js"></script>
-<!-- 
-<script type="text/javascript">
-$(function(){
-	var arr,reg=new RegExp("(^| )XSRF-TOKEN=([^;]*)(;|$)");
-	if (arr = document.cookie.match(reg)) {
-		$("input[name='_csrf']").val(arr[2]);
-	}
-	var $form = $("#loginForm");
-	var $mypwd = $("#mypwd");
-	$("#verifier").click(function(){
-		$(this).attr("src", "jcaptcha?t=" + new Date().getTime());
-	});
-	$form.bootstrapValidator({
-		container: 'popover',
-		feedbackIcons: {
-	        valid: 'glyphicon glyphicon-ok',
-	        invalid: 'glyphicon glyphicon-remove',
-	        validating: 'glyphicon glyphicon-refresh'
-	    },
-		fields: {
-			username : {
-				validators: {
-	                notEmpty: {
-	                    message: "请输入用户名"
-	                }
-	            }
-			},
-			mypwd : {
-				validators: {
-	                notEmpty: {
-	                    message: "请输入密码"
-	                }
-	            }
-			},
-			verifier : {
-				validators: {
-	                notEmpty: {
-	                    message: "请输入验证码"
-	                }
-	            }
-			}
-		}
-	}).on("success.form.bv", function(e){
-		e.preventDefault();
-		var bv = $form.data('bootstrapValidator');
-		$.post('login', $(e.target).serialize(), function(response){
-			if(response.state){
-				window.location.href = response.message;
-			}else{
-				if(response.message){
-					var error = $("<div class='alert alert-danger alert-dismissable'></div>")
-						.append("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>")
-						.append($("<span></span>").html(response.message));
-					$(".errorCode").html("");
-					$(".errorCode").prepend(error);
-					$("#verifier").trigger('click');
-					$("#verifier").parent().prev().val('');
-				}
-			}
-		},'json');
-	});
-});
-</script>
- -->
 </head>
-<body class="login">
-<!-- BEGIN LOGO -->
-<div class="logo">
-	<span class="title">绿城单车后台管理系统</span>
-</div>
-<!-- END LOGO -->
-<!-- BEGIN LOGIN -->
-<div class="content">
-	<!-- BEGIN LOGIN FORM -->
-	<form class="login-form" id="loginForm" action="login" method="post" autocomplete="off">
-		<div class="errorCode"></div>
-		<div class="form-group">
-			<div class="input-group">
-				<span class="input-group-addon black-font">用户名</span>
-				<input type="text" class="form-control" autofocus id="username" name="username" style="width: 210px;">
+<body>
+<!-- 
+	<div class="logo">
+		<span class="title">天迈科技统一用户认证平台</span>
+	</div>
+	<div class="content">
+		<form class="login-form" id="loginForm" action="login" method="post" autocomplete="off">
+			<div class="errorCode"></div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon black-font">用户名</span>
+					<input type="text" class="form-control" autofocus id="username" name="username" style="width: 210px;">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon black-font"><font style="letter-spacing: 1.4em;">密</font>码</span>
+					<input type="password" class="form-control" id="mypwd" name="password" style="width: 210px;">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group" style="margin-left: 15px; width: 270px;">
+					<button class="btn btn-large btn-primary btn-block btn-login" type="submit"><font style="letter-spacing: 0.3em;">登</font>录</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="copyright">
+		 2016 © 郑州天迈科技股份有限公司&nbsp;版权所有
+	</div>
+	<div class="container-fluid login-container">
+		<div class="row">
+			<div class="col-md-12" style="height:670px;">
+				<form id="loginForm" action="login" method="post" autocomplete="off" class="form-horizontal">
+				<input type="hidden" name="_csrf"/>
+				<div class="middle-login">
+					<div class="text-center">
+						<div class="col-md-7" style="width:400px;height:inherit;padding-top:26px;">
+							
+						</div>
+						<div class="col-md-5" style="width:160px;height:inherit;padding-top:26px;">
+							<div class="errorCode" style="width:124px;"></div>
+							<div style="position:absolute;bottom:30px;width:120px;">
+								<button class="btn btn-large btn-primary btn-block btn-login" type="submit"><font style="letter-spacing: 1em;">登</font>录</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="input-group">
-				<span class="input-group-addon black-font"><font style="letter-spacing: 1.4em;">密</font>码</span>
-				<input type="password" class="form-control" id="mypwd" name="password" style="width: 210px;">
+	</div>
+ -->
+	<form id="loginForm" action="login" method="post" autocomplete="off" class="form-horizontal">
+		<input type="hidden" name="_csrf"/>
+	 	<div class="login-box">
+	 		<div class="container-fluid">
+	 			<div class="row">
+	 				<div class="col-md-12 header"></div>
+	 			</div>
+				<div class="row login-inner-box">
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">用户名</span>
+								<input type="text" class="form-control" autofocus id="username" name="username">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><font style="letter-spacing: 1em;">密</font>码</span>
+								<input type="password" class="form-control" id="password" name="password">
+							</div>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-large btn-inverse" type="submit"><font style="letter-spacing: 1em;">登</font>录</button>
+						</div>
+					</div>
+					<div class="col-md-3"></div>
+				</div>
+				<div class="row">
+	 				<div class="col-md-12 footer">2016 © 郑州天迈科技股份有限公司&nbsp;版权所有</div>
+	 			</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="input-group" style="margin-left: 15px; width: 270px;">
-				<button class="btn btn-large btn-primary btn-block btn-login" type="submit"><font style="letter-spacing: 0.3em;">登</font>录</button>
-			</div>
-		</div>
-	</form>
-	<!-- END LOGIN FORM -->
-</div>
-<!-- END LOGIN -->
-<!-- BEGIN COPYRIGHT -->
-<div class="copyright">
-	 2016 © 郑州天迈科技股份有限公司&nbsp;版权所有
-</div>
-<!-- END COPYRIGHT -->
+	 	</div>
+ 	</form>
 </body>
 </html>

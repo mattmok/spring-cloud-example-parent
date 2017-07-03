@@ -5,12 +5,10 @@
 			<button class="close md-close" aria-hidden="true" data-dismiss="modal" type="button">×</button>
 		</div>
 		<div class="modal-body">
-			<div class="text-center">
-				<div class="i-circle" ng-class="$confrim.type">
-					<i class="fa" ng-class="$confrim.iconType" ng-class="$confrim.iconType"></i>
-				</div>
-				<h5 ng-bind="$confrim.content"></h5>
+			<div class="i-circle" ng-class="$confrim.type">
+				<i class="fa" ng-class="$confrim.iconType" ng-class="$confrim.iconType"></i>
 			</div>
+			<h5 ng-bind="$confrim.content"></h5>
 		</div>
 		<div class="modal-footer" ng-show="$confrim.callback !== undefined">
 			<button class="btn btn-default btn-flat md-close" data-dismiss="modal" type="button" ng-show="$confrim.callback !== undefined">取消</button>

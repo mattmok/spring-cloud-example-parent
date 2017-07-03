@@ -1,57 +1,60 @@
 @CHARSET "UTF-8";
-
-body {
-	font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	background-color: #0170a4 !important;
-}
-
-.container-fluid.login-container > .row {
-	background-image: url("../images/11002.png");
-	background-repeat: no-repeat;
-	background-position: center top;
-}
-
-.container-fluid.login-container > .row .middle-login {
+.login-box {
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	width: 600px;
-	height: 400px;
-	margin-left: -300px;
-	margin-top: -200px;
+	width: 700px;
+	height: 410px;
+	margin-left: -350px;
+	margin-top: -205px;
+	background-color: #414141;
 }
-.container-fluid.login-container>.row .middle-login>.text-center {
-	width: inherit;
-	height: 202px;
-	margin-top: 198px;
-	padding: 0 20px;
+.login-box .login-inner-box{
+	background-color: #1f1d1d;
+	padding:35px 0 25px;
+	border-color: #414141;
 }
-
-.container-fluid.login-container .form-group {
-    margin-bottom: 22px;
-	margin-left: 0;
-	margin-right: 0;
+.login-box .login-inner-box .input-group-addon{
+	background-color: #292929;
+	border-color: #292929;
+	color: #d8d9da;
 }
+.login-box .login-inner-box .form-control{
+	background-color: #333;
+	border-color: #292929;
+	color: #d8d9da;
 }
-.container-fluid.login-container .form-group.valication .form-control-feedback{
-	right: 75px;
+.login-box .col-md-3{
+	width: 210px;
 }
-.container-fluid.login-container .input-group-addon{
-	border: none;
-	font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	letter-spacing: 0.2em;
-	background: none;
-}
-.container-fluid.login-container .input-group-addon.valication{
-	padding: 0 2px;
-	width: 64px;
-	height: 34px;
+.login-box .col-md-6{
+	width: 280px;
 }
 
-.container-fluid.login-container .input-group-addon.valication img{
-	height: 34px;
-	cursor: pointer;
+.login-box .header{
+	height:174px;
+	max-height: 174px;
+	margin-bottom: 28px;
 }
-.container-fluid.login-container .input-group .form-control:last-child{
-	border-radius: 0;
+.login-box .footer{
+	background-color: #414141;
+	padding: 8px;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
 }
+button.btn-inverse{
+    color: #e3e3e3;
+    display: block;
+    width: 100%;
+    background-color: #292929;
+    border-color: #272727;
+    box-shadow: -1px -1px 0 0 rgba(255,255,255,.1), 1px 1px 0 0 rgba(0,0,0,.3);
+}
+
+button.btn-inverse.active, .btn-inverse.disabled, .btn-inverse:active, .btn-inverse:focus, .btn-inverse:hover, .btn-inverse[disabled] {
+    color: #e3e3e3;
+    background-image: none;
+    background-color: #292929;
+}
+	

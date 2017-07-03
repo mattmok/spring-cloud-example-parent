@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+<base href="/uaa/">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>天迈科技统一用户认证平台</title>
+<link rel="stylesheet" href="resources/components/zTree/zTreeStyle.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/component.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/nanoscroller.css">
+<link rel="stylesheet" href="resources/components/angularjs/css/angular-select.min.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap-validator.min.css">
+<link rel="stylesheet" href="resources/components/bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="resources/components/bootstrap/skins/square/blue.css">
+<link rel="stylesheet" href="resources/components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/dashboard.css">
+<script src="resources/components/js/jquery.min.js"></script>
+<script src="resources/components/angularjs/angular.min.js"></script>
+<script src="resources/components/js/stomp.js"></script>
+<script src="resources/components/js/sockjs.min.js"></script>
+<script src="resources/components/js/clipboard.min.js"></script>
+<script src="resources/components/zTree/jquery.ztree.all-3.5.min.js"></script>
+<script src="resources/components/zTree/jquery.ztree.exhide-3.5.min.js"></script>
+<script src="resources/components/bootstrap/js/jquery.nanoscroller.min.js"></script>
+<script src="resources/components/bootstrap/js/overthrow.min.js"></script>
+<script src="resources/components/bootstrap/js/bootstrap.min.js"></script>
+<script src="resources/components/bootstrap/js/icheck.min.js"></script>
+<script src="resources/components/bootstrap/js/jquery.modalEffects.js"></script>
+<script src="resources/components/angularjs/angular-route.js"></script>
+<script src="resources/components/angularjs/angular-cookies.min.js"></script>
+<script src="resources/components/angularjs/angular-animate.min.js"></script>
+<script src="resources/components/angularjs/angular-sanitize.min.js"></script>
+<script src="resources/components/angularjs/angular-resource.min.js"></script>
+<script src="resources/components/angularjs/angular-locale_zh-cn.js"></script>
+<script src="resources/components/angularjs/angular-select.min.js"></script>
+<script src="resources/components/angularjs/angular-validate.min.js"></script>
+<script src="resources/components/angularjs/angular-local-storage.min.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.copy.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.dialog.js"></script>
+<script src="resources/components/angularjs/angular-bootstrap.pagination2.js"></script>
+<script src="resources/components/angularjs/require.js" data-main="bootstrap"></script>
+</head>
+<body ng-controller="InitController">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-top-header">
+				<ul class="navbar-right">
+					<li><a href="javascript:;"><span class="glyphicon glyphicon-user icon"></span>&nbsp;<span th:text="${operator.nickname}"></span></a></li>
+					<li><a href="system/user/passwd.html"><span class="glyphicon glyphicon-pencil icon"></span>&nbsp;<span>修改密码</span></a></li>
+					<li><a href="logout" target="_self" ng-click="$destroy()"><span class="glyphicon glyphicon-off icon"></span>&nbsp;安全退出</a></li>
+				</ul>
+			</div>
+			<div class="navbar-header" style="height:73px;">
+				<a class="navbar-brand" href="#" th:href="@{/index.html}"><img alt="brand" src="resources/images/52d15b16.png"></a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right" style="padding-top:33px;">
+					<li th:each="item,state:${menus}" th:class="${state.index == 0? 'active':''}" ng-click="activeItem($event)">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" th:href="@{${item.path}}">
+							<span th:text="${item.name}">主菜单</span><span th:if="${item.children.size()} > 0" class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" th:if="${item.children.size()} > 0">
+							<li data-toggle="{{width < 768?'collapse':''}}" aria-expanded="false" th:each="child:${item.children}">
+								<a href="#" th:href="@{${child.path}}"><span th:text="${child.name}">子菜单</span></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="wrapper">
+		<div class="content-container">
+			<div class="nano" ng-style="{'height': height}" ng-if="width > 798">
+				<div class="overthrow nano-content">
+					<div ng-view ng-style="{'min-height': height}"></div>
+				</div>
+				<div class="nano-pane">
+					<div class="nano-slider"></div>
+				</div>
+			</div>
+			<div ng-view ng-style="{'min-height': height,'width': width}" ng-if="width < 798"></div>
+		</div>
+	</div>
+	<confrim></confrim>
+</body>
+</html>

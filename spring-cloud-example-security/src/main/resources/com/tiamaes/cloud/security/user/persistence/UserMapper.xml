@@ -5,6 +5,8 @@
 	<resultMap id="MutableUser" type="com.tiamaes.cloud.security.user.bean.MutableUser">
 		<id column="username" property="username" javaType="String"/>
 		<result column="nickname" property="nickname" javaType="String"/>
+		<result column="mobile" property="mobile"/>
+		<result column="email" property="email"/>
 		<result column="createDate" property="createDate"/>
 		<collection property="authorities" ofType="com.tiamaes.security.core.DefaultGrantedAuthority">
 			<constructor>
@@ -15,6 +17,7 @@
 	</resultMap>
 	<resultMap id="User" type="com.tiamaes.security.core.userdetails.User">
 		<id column="username" property="username" javaType="java.lang.String"/>
+		<result column="nickname" property="nickname" javaType="String"/>
 		<result column="password" property="password" javaType="java.lang.String"/>
 		<collection property="authorities" ofType="com.tiamaes.security.core.DefaultGrantedAuthority">
 			<constructor>
@@ -26,7 +29,7 @@
 	<select id="loadUserDetailByUsername" parameterType="String" resultMap="User">
 	<![CDATA[
 		SELECT 
-		    T.username, T.password, T.mobile, T.email, T.enabled,
+		    T.username, T.nickname, T.password, T.mobile, T.email, T.enabled,
 		    R.authority, R.alias
 		FROM TM_USERS T 
 		INNER JOIN TM_USER_ROLES UR ON UR.userid = T.username
@@ -40,7 +43,6 @@
 		    T.username, T.nickname, T.mobile, T.email, T.createDate, T.enabled,
 		    R.authority, R.alias 
 		FROM TM_USERS T 
-		LEFT JOIN TM_USERS_INFO I ON I.id = T.username
 		LEFT JOIN TM_USER_ROLES U ON U.userid = T.username
 		LEFT JOIN TM_ROLES R ON R.authority = U.authority
 		<where>
@@ -57,9 +59,48 @@
 		    AND T.email LIKE CONCAT('%',CONCAT(#{email, jdbcType=VARCHAR},'%'))
 			</if>
 			<if test="authorities != null and authorities.size > 0 and authorities[0].authority!=null">
-		    AND U.authority = #{authorities[0].authority, jdbcType=VARCHAR}
+		    AND U.authority = CONCAT('ROLE_',CONCAT(#{authorities[0].authority, jdbcType=VARCHAR}))
 			</if>
 		</where>
 		ORDER BY T.CREATEDATE DESC, T.USERNAME
+	</select>
+	
+	<!-- 根据Id查询用户信息 -->
+	<select id="getMutableUserById" parameterType="String" resultMap="MutableUser">
+		<![CDATA[
+		SELECT T.username, T.nickname, T.mobile, T.email, T.createDate, T.enabled, R.authority, R.alias
+		FROM TM_USERS T
+		LEFT JOIN TM_USER_ROLES UR ON UR.userid = T.username
+		LEFT JOIN TM_ROLES R ON R.authority = UR.authority
+		WHERE T.username = #{username}
+		]]>
+	</select>
+	<!-- 保存用户 -->
+	<insert id="insertMutableUser" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser">
+		INSERT INTO TM_USERS (username, password, nickname, mobile, email, createdate, enabled)
+		VALUES(#{username}, #{password}, #{nickname}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, now(), 1)
+	</insert>
+	<!-- 更新用户 -->
+	<update id="updateMutableUser" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser">
+		UPDATE TM_USERS SET nickname = #{nickname}, mobile = #{mobile, jdbcType=VARCHAR}, email = #{email, jdbcType=VARCHAR} WHERE username = #{username}
+	</update>
+	<!-- 保存用户角色 -->
+	<insert id="addUserRoles" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser">
+		INSERT INTO TM_USER_ROLES (userid, authority) VALUES
+		<foreach collection="authorities" item="role" separator=",">
+		 (#{username}, CONCAT('ROLE_',CONCAT(#{role.authority})))
+		</foreach>
+	</insert>
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser">
+		DELETE FROM TM_USERS WHERE username = #{username}
+	</delete>
+	<!-- 删除用户角色 -->
+	<delete id="deleteUserRoles" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser">
+		DELETE FROM TM_USER_ROLES WHERE userid = #{username}
+	</delete>
+	<!-- 检查用户名是否存在 -->
+	<select id="hasExists" parameterType="String" resultType="boolean">
+		SELECT COUNT(1) FROM DUAL WHERE EXISTS (SELECT 1 FROM TM_USERS T WHERE T.USERNAME = #{username})
 	</select>
 </mapper>

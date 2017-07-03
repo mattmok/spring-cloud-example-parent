@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiamaes.cloud.security.role.persistence.RoleMapper">
+	<resultMap type="com.tiamaes.cloud.security.role.bean.Role" id="Role">
+		<constructor>
+			<idArg column="authority" javaType="String"/>
+			<arg column="alias" javaType="String"/>
+		</constructor>
+		<result column="icon" property="icon"/>
+		<result column="remarks" property="remarks"/>
+		<result column="createDate" property="createDate"/>
+	</resultMap>
+	<select id="getAllRolesByParams" parameterType="com.tiamaes.cloud.security.role.bean.Role" resultMap="Role">
+		SELECT SUBSTRING(T.authority, 6) AS authority, T.alias
+		<if test="_parameter != null">,T.icon,T.remarks,T.createDate</if> 
+		FROM TM_ROLES T
+		<where>
+			<if test="authority != null and authority != ''">
+			T.AUTHORITY LIKE CONCAT('%',CONCAT(#{authority},'%'))
+			</if>
+		</where>
+		ORDER BY T.AUTHORITY
+	</select>
+	<insert id="insertRole" parameterType="com.tiamaes.cloud.security.role.bean.Role">
+		INSERT INTO TM_ROLES (authority,alias,icon,remarks,createDate) 
+		VALUES(
+			#{authority},
+			#{alias},
+			#{icon,jdbcType=VARCHAR},
+			#{remarks,jdbcType=VARCHAR},
+			#{createDate})
+	</insert>
+	<select id="getRoleByAuthority" parameterType="string" resultMap="Role">
+		SELECT authority, alias, icon, remarks, createDate FROM TM_ROLES WHERE authority = #{authority}
+	</select>
+	<delete id="deleteUserRoleByAuthority" parameterType="string">
+		DELETE FROM TM_USER_ROLES WHERE authority = #{authority}
+	</delete>
+	<delete id="deleteResourceRoleByAuthority" parameterType="string">
+		DELETE FROM TM_ROLE_RESOURCES WHERE authority = #{authority}
+	</delete>
+	<delete id="deleteRoleByAuthority" parameterType="string">
+		DELETE FROM TM_ROLES WHERE authority = #{authority}
+	</delete>
+	<update id="updateRole" parameterType="com.tiamaes.cloud.security.role.bean.Role">
+		UPDATE TM_ROLES SET 
+			alias = #{alias,jdbcType=VARCHAR},
+			remarks = #{remarks,jdbcType=VARCHAR}
+		WHERE authority = #{authority}
+	</update>
+	<!-- 检查角色名是否存在 -->
+	<select id="hasExists" parameterType="String" resultType="boolean">
+		SELECT COUNT(1) FROM DUAL WHERE EXISTS (SELECT 1 FROM TM_ROLES T WHERE T.authority = #{authority})
+	</select>
+	
+	
+	<resultMap type="com.tiamaes.cloud.security.role.bean.RoleAuthority" id="RoleAuthority">
+		<id column="id1" property="id"/>
+		<result column="name1" property="name"/>
+		<result column="checked1" property="checked"/>
+		<collection property="children" ofType="com.tiamaes.cloud.security.role.bean.RoleAuthority">
+			<id column="id2" property="id"/>
+			<result column="name2" property="name"/>
+			<result column="checked2" property="checked"/>
+			<collection property="children" ofType="com.tiamaes.cloud.security.role.bean.RoleAuthority">
+				<id column="id3" property="id"/>
+				<result column="name3" property="name"/>
+				<result column="checked3" property="checked"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<!-- 查询角色权限 -->
+	<select id="getAuthorization" parameterType="string" resultMap="RoleAuthority">
+		SELECT T1.id AS id1,
+	       T1.name AS name1,
+	       (CASE WHEN rr1.resourceid IS NOT NULL THEN 1 ELSE NULL END) AS checked1,
+	       T2.id AS id2,
+	       T2.name AS name2,
+	       (CASE WHEN RR2.resourceid IS NOT NULL THEN 1 ELSE NULL END) AS checked2,
+	       T3.id AS id3,
+	       T3.name AS name3,
+	       (CASE WHEN RR3.resourceid IS NOT NULL THEN 1 ELSE NULL END) AS checked3
+	  FROM TM_RESOURCES T1
+	  LEFT JOIN TM_RESOURCES T2 ON T2.rank = 1 AND T2.parentid = T1.id
+	  LEFT JOIN TM_RESOURCES T3 ON T3.rank = 2 AND T3.parentid = T2.id
+	  LEFT JOIN TM_ROLE_RESOURCES RR1 ON RR1.resourceid = T1.id AND RR1.authority = #{authority}
+	  LEFT JOIN TM_ROLE_RESOURCES RR2 ON RR2.resourceid = T2.id AND RR2.authority = #{authority}
+	  LEFT JOIN TM_ROLE_RESOURCES RR3 ON RR3.resourceid = T3.id AND RR3.authority = #{authority}
+	 WHERE T1.RANK = 0
+	 ORDER BY T1.ORDERNO, T2.ORDERNO, T3.ORDERNO
+	</select>
+	<!-- 删除角色权限 -->
+	<delete id="deleteAuthorization" parameterType="HashMap">
+		DELETE FROM TM_ROLE_RESOURCES WHERE authority = #{authority} AND resourceid = #{resourceid}
+	</delete>
+	<!-- 保存角色授权 -->	
+	<insert id="saveAuthorization" parameterType="HashMap">
+		INSERT INTO TM_ROLE_RESOURCES (resourceid,authority) VALUES (#{resourceid},#{authority})
+	</insert>
+	<select id="hasAuthorized" parameterType="Map" resultType="boolean">
+		SELECT COUNT(1) FROM DUAL WHERE EXISTS( SELECT 1 FROM TM_ROLE_RESOURCES WHERE resourceid = #{resourceid} AND authority = #{authority})
+	</select>
+</mapper>

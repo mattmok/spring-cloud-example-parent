@@ -10,17 +10,6 @@
 					<div class="row" style="margin-bottom: 5px;">
 						<div class="col-md-12">
 							<div class="input-group input-group-sm">
-								<span class="input-group-addon">角色类别</span>
-								<div class="input-group-default">
-									<ui-select ng-model="searchForm.data.type" theme="bootstrap" title="{{$select.selected.name}}">
-										<ui-select-match placeholder="选择角色类别">{{$select.selected.name}}</ui-select-match>
-										<ui-select-choices position="down" repeat="item in searchForm.roleTypes track by $index">
-											<div ng-bind-html="item.name"></div>
-										</ui-select-choices> 
-									</ui-select>
-								</div>
-							</div>
-							<div class="input-group input-group-sm">
 								<span class="input-group-addon">角色名称</span>
 								<input type="text" class="form-control" name="authority" ng-model="searchForm.data.authority" placeholder="请输入角色名称" style="min-width: 120px;">
 							</div>
@@ -44,49 +33,35 @@
 				<div class="row" style="margin-bottom:10px;">
 					<div class="col-md-12 text-right">
 						<div class="btn-group add-btn" role="group" aria-label="...">
-							<button type="button" class="btn btn-success btn-sm"
-								ng-click="add()"
-								data-title="新建角色"
-								data-action="authority/role"
-								data-modal="form-primary"
-								data-editabled="true">
+							<button type="button" class="btn btn-success btn-sm" ng-click="add()">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								<span>新建角色</span>
 							</button>
 						</div>
 					</div>
 				</div>
-				<pagination2 parameters="searchForm.data" uri="authority/role/page/" id="pagination">
+				<pagination2 parameters="searchForm.data" uri="role/page/" id="pagination" items-per-page="10">
 					<table class="table table-bordered table-condensed table-hover">
 						<thead>
 							<tr>
 								<td width="150">角色</td>
 								<td width="200">别名</td>
-								<td width="100">类别</td>
 								<td class="hidden-xs">备注</td>
 								<td width="130">创建时间</td>
 								<td width="220">操作</td>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="value in $parent.list track by $index">
-								<td ng-bind="value.authority"></td>
-								<td ng-bind="value.alias"></td>
-								<td ng-bind="value.type.name"></td>
-								<td class="hidden-xs" ng-bind="value.remarks"></td>
-								<td ng-bind="value.createtime  | date:'yyyy-MM-dd HH:mm:ss'"></td>
+							<tr ng-repeat="item in $parent.list track by $index">
+								<td ng-bind="item.authority"></td>
+								<td ng-bind="item.alias"></td>
+								<td class="hidden-xs" ng-bind="item.remarks"></td>
+								<td ng-bind="item.createDate  | date:'yyyy-MM-dd HH:mm:ss'"></td>
 								<td class="text-center">
-									<a ng-click="openAuthDialog($event, value)"
-										data-title="权限设置"
-										data-modal="form-primary2"
-										ng-href="authority/role/auth/{{value.authority}}">权限设置</a>
-									<!-- <a ng-click="openWarnDialog($event, value)"
-										data-title="报警设置"
-										data-modal="form-primary3"
-										ng-href="system/authority/warnAuths/{{value.authority}}">报警设置</a> -->
-									<a href="javascript:;" ng-click="info(value)">详情</a>
-									<a href="javascript:;" ng-click="edit(value)">编辑</a>
-									<a href="javascript:;" ng-click="remove(value)">删除</a>
+									<a ng-click="openAuthDialog($event, item)">权限设置</a>
+									<a href="javascript:;" ng-click="info(item)">详情</a>
+									<a href="javascript:;" ng-click="edit(item)">编辑</a>
+									<a href="javascript:;" ng-click="remove(item)">删除</a>
 								</td>
 							</tr>
 						</tbody>
@@ -97,5 +72,4 @@
 	</div>
 	<div dialog="dialog" template-url="module/system/role/dialog.html"></div>
 	<div dialog="authDialog" template-url="module/system/role/auths.html"></div>
-	<div dialog="warnDialog" template-url="module/system/role/warnAuths.html"></div>
 </div>

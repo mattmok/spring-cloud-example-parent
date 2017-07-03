@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.tiamaes.cloud.security.provisioning.MutableUser;
+import com.tiamaes.cloud.security.user.bean.MutableUser;
 import com.tiamaes.security.core.userdetails.User;
 
 /**
@@ -25,13 +25,13 @@ public interface UserMapper {
 	User loadUserDetailByUsername(@Param("username") String username);
 
 	/**
-	 * 根据用户编号查询用户信息
+	 * 根据用户名称查询用户信息
 	 * 
-	 * @param id
+	 * @param username
 	 * @return
 	 * @throws Exception
 	 */
-	User getUserById(@Param("id") String id);
+	MutableUser getMutableUserById(@Param("username") String username);
 	/**
 	 * 查询所有用户
 	 * 
@@ -43,36 +43,20 @@ public interface UserMapper {
 	 * 
 	 * @param user
 	 */
-	void addUser(User user);
-
-	/**
-	 * 保存用户设置
-	 * 
-	 * @param user
-	 */
-	void addUserSettings(User user);
-
+	void insertMutableUser(MutableUser user);
 	/**
 	 * 保存用户角色
 	 * 
 	 * @param authorities
 	 */
-	void addUserRoles(User user);
+	void addUserRoles(MutableUser user);
 
 	/**
 	 * 更新用户
 	 * 
 	 * @param user
 	 */
-	void updateUser(User user);
-
-	/**
-	 * 更新用户设置
-	 * 
-	 * @param user
-	 */
-	void updateUserSettings(User user);
-
+	void updateMutableUser(MutableUser user);
 	/**
 	 * 修改指定用户的密码
 	 * 
@@ -86,14 +70,14 @@ public interface UserMapper {
 	 * 
 	 * @param user
 	 */
-	void deleteUser(User user);
+	void deleteUser(MutableUser user);
 
 	/**
 	 * 删除用户关联角色
 	 * 
 	 * @param user
 	 */
-	void deleteUserRoles(User user);
+	void deleteUserRoles(MutableUser user);
 
 	/**
 	 * 删除用户设置

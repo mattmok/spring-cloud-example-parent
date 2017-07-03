@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,31 +41,30 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/checkname/{username}", method = RequestMethod.GET)
-	public @ResponseBody Map<String,Boolean> checkname(@PathVariable("username")String username) {
+	public @ResponseBody Object checkname(@PathVariable("username")String username) {
 		Map<String,Boolean> result = new HashMap<String,Boolean>();
 		Boolean state = userService.checkUserName(username);
 		result.put("state", state);
 		return result;
 	}
 	
-	@Secured("ADMIN")
 	@RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
-	public @ResponseBody void delete(@PathVariable("username")String username, @CurrentUser com.tiamaes.security.core.userdetails.User operator) {
+	public @ResponseBody void delete(@PathVariable("username")String username, @CurrentUser User operator) {
 		if(StringUtils.isNotBlank(username)){
 			userService.deleteUser(username);
 		}
 	}
 	
-//	@RequestMapping(method = RequestMethod.PUT)
-//	public @ResponseBody User add(@RequestBody User user, @CurrentUser com.tiamaes.security.core.userdetails.User operator){
-//		user = userService.addUser(user);
-//		return user;
-//	}
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public @ResponseBody User register(@RequestBody User user){
-//		return userService.register(user);
-//	}
-//	
+	@RequestMapping(method = RequestMethod.PUT)
+	public @ResponseBody MutableUser add(@RequestBody MutableUser user, @CurrentUser User operator){
+		return userService.addMutableUser(user);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public @ResponseBody MutableUser update(@RequestBody MutableUser user, @PathVariable("id")String id, @CurrentUser User operator) {
+		return userService.updateUser(user);
+	}
+	
 //	@RequestMapping(value = "/updatepwd/{username}/{newpasswd}", method = RequestMethod.PUT)
 //	public @ResponseBody void updatePwd(@PathVariable String username, @PathVariable String newpasswd) {
 //		User actual = userService.getUserById(username);

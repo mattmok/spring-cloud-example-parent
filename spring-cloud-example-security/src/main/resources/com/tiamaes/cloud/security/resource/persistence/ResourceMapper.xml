@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiamaes.cloud.security.resource.persistence.ResourceMapper">
+	<resultMap id="navigation" type="com.tiamaes.cloud.security.resource.bean.Navigation">
+		<id property="id" column="id1"/>
+		<result property="name" column="name1"/>
+		<result property="path" column="path1"/>
+		<result property="ico" column="ico1"/>
+		<result property="rank" column="rank1"/>
+		<result property="orderNo" column="orderno1"/>
+		<collection property="children" ofType="com.tiamaes.cloud.security.resource.bean.Navigation">
+			<id property="id" column="id2"/>
+			<result property="name" column="name2"/>
+			<result property="path" column="path2"/>
+			<result property="ico" column="ico2"/>
+			<result property="rank" column="rank2"/>
+			<result property="orderNo" column="orderno2"/>
+			<collection property="children" ofType="com.tiamaes.cloud.security.resource.bean.Navigation">
+				<id property="id" column="id3"/>
+				<result property="name" column="name3"/>
+				<result property="path" column="path3"/>
+				<result property="ico" column="ico3"/>
+				<result property="rank" column="rank3"/>
+				<result property="orderNo" column="orderno3"/>
+				<collection property="children" ofType="com.tiamaes.cloud.security.resource.bean.Navigation">
+					<id property="id" column="id4"/>
+					<result property="name" column="name4"/>
+					<result property="path" column="path4"/>
+					<result property="ico" column="ico4"/>
+					<result property="rank" column="rank4"/>
+					<result property="orderNo" column="orderno4"/>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<!-- 查询所有的资源 -->
+	<select id="getAllResources" resultType="com.tiamaes.cloud.security.resource.bean.Resource">
+		select id, name, path, parentid, ico, rank, orderNo from TM_RESOURCES order by orderNo
+	</select>
+	
+	<!-- 递归查询所有资源 -->
+	<select id="getChildren" parameterType="String" resultType="com.tiamaes.cloud.security.resource.bean.Resource">
+	SELECT T.id, T.name, T.orderNo, T.parentId, T.path, T.rank, T.ico
+	FROM TM_RESOURCES T
+	<where>
+		<if test="id != null">
+			T.parentId = #{id}
+		</if>
+		<if test="id == null">
+			T.parentId IS NULL
+		</if>
+	</where>
+	ORDER BY orderNo
+	</select>
+	<!-- 根据用户角色获取系统菜单 -->
+	<select id="getNavigation" parameterType="String" resultMap="navigation">
+		SELECT 
+		  tb1.id AS id1,tb1.name AS name1,tb1.path AS path1,tb1.ico AS ico1,tb1.rank AS rank1,tb1.orderno AS orderno1,
+		  tb2.id AS id2,tb2.name AS name2,tb2.path AS path2,tb2.ico AS ico2,tb2.rank AS rank2,tb2.orderno AS orderno2,
+		  tb3.id AS id3,tb3.name AS name3,tb3.path AS path3,tb3.ico AS ico3,tb3.rank AS rank3,tb3.orderno AS orderno3,
+		  tb4.id AS id4,tb4.name AS name4,tb4.path AS path4,tb4.ico AS ico4,tb4.rank AS rank4,tb4.orderno AS orderno4
+		 FROM (SELECT t1.id,t1.name,t1.path,t1.ico,t1.rank,t1.orderno,t1.parentid FROM tm_resources t1 INNER JOIN tm_role_resources t ON t.resourceid = t1.id WHERE t.authority IN (SELECT t.authority FROM tm_user_roles t WHERE userid = #{userid})) tb1 
+		LEFT JOIN (SELECT t2.id,t2.name,t2.path,t2.ico,t2.rank,t2.orderno,t2.parentid FROM tm_resources t2 INNER JOIN tm_role_resources t ON t.resourceid = t2.id WHERE t.authority IN (SELECT t.authority FROM tm_user_roles t WHERE userid = #{userid})) tb2 ON tb1.id = tb2.parentid 
+		LEFT JOIN (SELECT t3.id,t3.name,t3.path,t3.ico,t3.rank,t3.orderno,t3.parentid FROM tm_resources t3 INNER JOIN tm_role_resources t ON t.resourceid = t3.id WHERE t.authority IN (SELECT t.authority FROM tm_user_roles t WHERE userid = #{userid})) tb3 ON tb2.id = tb3.parentid
+		LEFT JOIN (SELECT t4.id,t4.name,t4.path,t4.ico,t4.rank,t4.orderno,t4.parentid FROM tm_resources t4 INNER JOIN tm_role_resources t ON t.resourceid = t4.id WHERE t.authority IN (SELECT t.authority FROM tm_user_roles t WHERE userid = #{userid})) tb4 ON tb3.id = tb4.parentid
+		WHERE tb1.parentid IS NULL
+		ORDER BY tb1.orderno, tb2.orderno,tb3.orderno, tb4.orderno
+	</select>
+	<!-- 根据编号查询资源信息 -->
+	<select id="getResourceById" parameterType="String" resultType="com.tiamaes.cloud.security.resource.bean.Resource">
+		SELECT T.id, T.name, T.path, T.parentId, T.rank, T.orderNo, T.ico FROM TM_RESOURCES T
+		WHERE T.id = #{id}
+	</select>
+	<!-- 新建资源 -->
+	<insert id="addResource" parameterType="com.tiamaes.cloud.security.resource.bean.Resource">
+		INSERT INTO TM_RESOURCES
+		  (id, name, rank, path, parentId, orderNo, ico)
+		VALUES
+		  (#{id}, #{name}, #{rank}, #{path,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, #{ico,jdbcType=VARCHAR})
+	</insert>
+	<!-- 删除资源 -->
+	<delete id="deleteResource" parameterType="String">
+		DELETE FROM TM_RESOURCES WHERE ID = #{id} OR PARENTID = #{id};
+	</delete>
+	<!-- 删除资源相关角色列表 -->
+	<delete id="deleteRolesResource" parameterType="String">
+		DELETE FROM TM_ROLE_RESOURCES WHERE RESOURCEID = #{id}
+	</delete>
+	<!-- 是否包含下级资源 -->
+	<select id="hasChildren" parameterType="String" resultType="boolean">
+		SELECT COUNT(1) FROM DUAL WHERE EXISTS (SELECT 1 FROM TM_RESOURCES T WHERE T.parentId = #{id})
+	</select>
+	<!-- 更新资源 -->
+	<update id="updateResource" parameterType="com.tiamaes.cloud.security.resource.bean.Resource">
+		UPDATE TM_RESOURCES T SET 
+			T.name = #{name},
+			T.orderNo = #{orderNo},
+			T.path=#{path,jdbcType=VARCHAR},
+			T.ico = #{ico,jdbcType=VARCHAR}
+		WHERE T.id = #{id}
+	</update>
+</mapper>

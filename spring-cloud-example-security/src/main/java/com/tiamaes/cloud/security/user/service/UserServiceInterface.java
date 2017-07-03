@@ -6,15 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.tiamaes.cloud.security.user.bean.MutableUser;
 import com.tiamaes.mybatis.Pagination;
-import com.tiamaes.security.core.userdetails.User;
 
 public interface UserServiceInterface extends UserDetailsService{
 	/**
-	 * 根据Id查询用户详情
-	 * @param id
+	 * 根据username查询用户详情
+	 * @param username
 	 * @return
 	 */
-	User getUserById(String id);
+	MutableUser getMutableUserByUsername(String username);
 	/**
 	 * 查询注册用户列表
 	 * @param user
@@ -27,13 +26,13 @@ public interface UserServiceInterface extends UserDetailsService{
 	 * @param user
 	 * @throws Exception 
 	 */
-	User addUser(User user);
+	MutableUser addMutableUser(MutableUser user);
 	/**
 	 * 更新用户
 	 * @param user
 	 * @throws Exception 
 	 */
-	User updateUser(User user);
+	MutableUser updateUser(MutableUser user);
 	/**
 	 * 删除用户
 	 * @param username
@@ -51,10 +50,4 @@ public interface UserServiceInterface extends UserDetailsService{
 	 * @return
 	 */
 	boolean hasRole(String authority);
-	/**
-	 * 注册用户
-	 * @param user
-	 * @return
-	 */
-	User register(User user);
 }
