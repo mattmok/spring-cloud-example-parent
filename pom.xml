@@ -24,6 +24,8 @@
 		<module>spring-cloud-example-netty</module>
 		<module>spring-cloud-example-redis</module>
 		<module>spring-cloud-example-security</module>
+		<module>spring-cloud-example-kafka</module>
+		<module>spring-cloud-example-kafka-client</module>
 	</modules>
 
 	<properties>

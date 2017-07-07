@@ -1,0 +1,9 @@
+server:
+  port: 7000
+  contextPath: /kakfa
+spring:
+  application:
+    name: spring-cloud-example-kafka
+  kafka:
+    bootstrap-servers: 192.168.57.248:9092
+    zookeepers: 192.168.57.248:2181

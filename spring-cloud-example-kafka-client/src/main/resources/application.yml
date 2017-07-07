@@ -1,0 +1,11 @@
+server:
+  port: 7001
+  contextPath: /kakfa-client
+spring:
+  application:
+    name: spring-cloud-example-kafka-client
+  kafka:
+    bootstrap-servers: 192.168.57.248:9092
+    zookeepers: 192.168.57.248:2181
+    consumer:
+      group-id: default
