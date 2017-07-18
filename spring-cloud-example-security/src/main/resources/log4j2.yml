@@ -13,7 +13,7 @@ Configutation:
         AppenderRef:
           - ref: Console-Appender
       Logger:
-        - name: com.tiamaes
+        - name: com.tiamaes.cloud
           level: DEBUG
         - name: org.springframework.security
           level: WARN

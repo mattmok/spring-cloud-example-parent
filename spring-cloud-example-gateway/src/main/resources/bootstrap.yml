@@ -1,11 +1,4 @@
-server:
-  port: 8080
-  contextPath: /gateway
 spring:
-  profiles:
-    active: oauth2,swagger
-  application:
-    name: spring-cloud-example-gateway
   cloud:
     config:
       enabled: false
@@ -34,22 +27,3 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery.cloud.tiamaes.com:8761/eureka/
-zuul:
-  ignoredServices: '*'
-  routes:
-    simple:
-      path: /simple/**
-      sensitive-headers:
-      stripPrefix: false
-      serviceId: spring-cloud-example-simaple
-    feign:
-      path: /feign/**
-      sensitive-headers:
-      stripPrefix: false
-      serviceId: spring-cloud-example-feign
-    legacy:
-      path: /legacy/**
-      url: http://127.0.0.1:8700/simple/legacy
-    forward:
-      path: /forward/**
-      url: forward:/hello

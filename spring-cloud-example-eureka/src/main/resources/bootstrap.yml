@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      uri: http://config.cloud.tiamaes.com:8888
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*

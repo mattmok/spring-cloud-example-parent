@@ -1,0 +1,8 @@
+<div class="alert fade in" ng-class="['alert-' + (type || 'warning'), closeable ? 'alert-dismissible' : null]" role="alert">
+    <button ng-show="closeable" type="button" class="close" ng-click="close($event)">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4>当前活动信息</h4>
+    <div ng-transclude></div>
+</div>

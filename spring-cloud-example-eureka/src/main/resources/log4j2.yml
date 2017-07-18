@@ -1,0 +1,21 @@
+Configutation:
+  name: Default
+  status: warn
+  Properties:
+    Property:
+      name: log-path
+      value: "logs"
+  Appenders:
+    Console:
+      name: Console-Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{ISO8601} %c{1} - %m%n"
+  Loggers:
+      Root:
+        level: INFO
+        AppenderRef:
+          - ref: Console-Appender
+      Logger:
+        - name: com.tiamaes.cloud
+          level: DEBUG

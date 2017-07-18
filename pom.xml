@@ -26,6 +26,7 @@
 		<module>spring-cloud-example-security</module>
 		<module>spring-cloud-example-kafka</module>
 		<module>spring-cloud-example-kafka-client</module>
+		<module>spring-cloud-example-eureka</module>
 	</modules>
 
 	<properties>

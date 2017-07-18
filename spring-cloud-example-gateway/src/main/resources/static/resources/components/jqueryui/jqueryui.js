@@ -1,0 +1,1 @@
+define(['resources/components/jqueryui/js/jquery-ui.js','css!resources/components/jqueryui/css/jquery-ui.css']);

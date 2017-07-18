@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,13 @@ import com.tiamaes.security.core.userdetails.User;
 public class ResourceController {
 	@Autowired
 	private ResourceServiceInterface resourceService;
+	
+	@GetMapping("/navigation")
+	@PreAuthorize("isAuthenticated()")
+	public @ResponseBody List<Resource> navigation(@CurrentUser User operator) {
+		List<Resource> resources = resourceService.getNavigation(operator);
+		return resources;
+	}
 
 	@GetMapping("/list")
 	public @ResponseBody List<Resource> list(@CurrentUser User operator) {

@@ -1,0 +1,8 @@
+<ul class="pagination">
+  <li><span>总页数：<i ng-bind="totalPages"></i>&nbsp;总记录数：<i ng-bind="totalItems"></i></span></li>
+  <li ng-if="::boundaryLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-first"><a href="javascript:;" ng-click="selectPage(1, $event)">{{::getText('first')}}</a></li>
+  <li ng-if="::directionLinks" ng-class="{disabled: noPrevious()||ngDisabled}" class="pagination-prev"><a href="javascript:;" ng-click="selectPage(page - 1, $event)">{{::getText('previous')}}</a></li>
+  <li ng-repeat="page in pages track by $index" ng-class="{active: page.active,disabled: ngDisabled&&!page.active}" class="pagination-page"><a href="javascript:;" ng-click="selectPage(page.number, $event)">{{page.text}}</a></li>
+  <li ng-if="::directionLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-next"><a href="javascript:;" ng-click="selectPage(page + 1, $event)">{{::getText('next')}}</a></li>
+  <li ng-if="::boundaryLinks" ng-class="{disabled: noNext()||ngDisabled}" class="pagination-last"><a href="javascript:;" ng-click="selectPage(totalPages, $event)">{{::getText('last')}}</a></li>
+</ul>

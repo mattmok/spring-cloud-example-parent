@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+	<thead>
+		<tr><td>Application</td><td>AMIs</td><td>Availability Zones</td><td>Status</td></tr>
+	</thead>
+	<tbody th:if="${!apps.empty}" th:each="app: ${apps}">
+		<tr><td th:text="${app.name}"></td><td>AMIs</td><td>Availability Zones</td><td>Status</td></tr>
+	</tbody>
+	<tbody th:unless="${!apps.empty}">
+		<tr><td colspan="4">No instances available</td></tr>
+	</tbody>
+</table>
+</body>
+</html>

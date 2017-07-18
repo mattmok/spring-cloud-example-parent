@@ -17,3 +17,4 @@ security:
           -----END PUBLIC KEY-----
       id: openid
       serviceId: resource
+      user-info-uri: http://localhost:8000/uaa/user

@@ -1,5 +1,9 @@
 package com.tiamaes.cloud.security;
 
+import java.security.Principal;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +24,13 @@ import com.tiamaes.security.core.userdetails.User;
 public class DefaultController {
 	@Autowired
 	private ResourceServiceInterface resourceService;
+	
+	@RequestMapping({ "/user", "/me" })
+	public Map<String, String> user(Principal principal) {
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("name", principal.getName());
+		return map;
+	}
 	
 	@RequestMapping(value = {"/{module:(?!module|resources).+}/**/*.html", "/build.html", "/monitor/index.html"}, method = RequestMethod.GET)
 	public void module(HttpServletRequest request, HttpServletResponse response) throws Exception {

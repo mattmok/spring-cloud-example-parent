@@ -1,0 +1,23 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: spring-cloud-example-eureka
+  datasource:
+    url: jdbc:mysql://192.168.32.124:3306/authority?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: tmkj@zgb123
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    prefix: classpath:/templates2/
+security:
+  user:
+    password: 123456
+  ignored:
+  - /eureka/**
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0

@@ -41,7 +41,7 @@
 	<select id="getAllMutableUsers" parameterType="com.tiamaes.cloud.security.user.bean.MutableUser" resultMap="MutableUser">
 		SELECT 
 		    T.username, T.nickname, T.mobile, T.email, T.createDate, T.enabled,
-		    R.authority, R.alias 
+		    SUBSTRING(R.authority, 6) AS authority, R.alias 
 		FROM TM_USERS T 
 		LEFT JOIN TM_USER_ROLES U ON U.userid = T.username
 		LEFT JOIN TM_ROLES R ON R.authority = U.authority

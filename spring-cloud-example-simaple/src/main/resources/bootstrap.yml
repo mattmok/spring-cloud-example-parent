@@ -1,11 +1,4 @@
-server:
-  port: 8700
-  contextPath: /simple
 spring:
-  profiles:
-    active: oauth2,swagger
-  application:
-    name: spring-cloud-example-simaple
   cloud:
     config:
       enabled: false

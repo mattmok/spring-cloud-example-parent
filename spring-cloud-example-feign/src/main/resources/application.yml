@@ -1,0 +1,8 @@
+server:
+  port: 8701
+  contextPath: /feign
+spring:
+  profiles:
+    active: oauth2,swagger
+  application:
+    name: spring-cloud-example-feign
