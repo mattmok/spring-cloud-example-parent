@@ -1,12 +1,9 @@
 package com.tiamaes.cloud.gateway;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,15 +27,9 @@ public class DefaultController {
 	
 	
 	@RequestMapping(value = {"/index.html", "/"}, method = RequestMethod.GET)
-	public String index(@CurrentUser Authentication operator, Model model){
-//		if(StringUtils.isBlank(operator.getNickname())){
-//			operator.setNickname(operator.getUsername());
-//		}
-		
-		
-		model.addAttribute("operator", new User(operator.getName()));
-//		model.addAttribute("menus", resourceService.getNavigation());
-		model.addAttribute("menus", new ArrayList<Object>());
+	public String index(@CurrentUser User operator, Model model){
+		model.addAttribute("operator", operator);
+		model.addAttribute("menus", resourceService.getNavigation());
 		return "index";
 	}
 }
