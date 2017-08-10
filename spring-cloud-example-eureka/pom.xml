@@ -18,5 +18,9 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.tiamaes.cloud</groupId>
+			<artifactId>tiamaes-cloud-starter-mybatis</artifactId>
+		</dependency>
 	</dependencies>
 </project>

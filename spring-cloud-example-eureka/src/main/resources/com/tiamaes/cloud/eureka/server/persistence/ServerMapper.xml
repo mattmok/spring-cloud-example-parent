@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiamaes.cloud.eureka.server.persistence.ServerMapper">
+	<resultMap id="Server" type="com.tiamaes.cloud.eureka.server.bean.Server">
+		<id column="id" property="id" javaType="java.lang.String"/>
+		<result column="name" property="name" javaType="String"/>
+		<result column="svn" property="svn" javaType="java.lang.String"/>
+		<result column="version" property="version" javaType="java.lang.String"/>
+		<association property="principal" javaType="com.tiamaes.security.core.userdetails.User">
+			<constructor>
+				<idArg column="username" javaType="java.lang.String"/>
+			</constructor>
+			<result column="mobile" property="mobile"/>
+			<result column="email" property="email"/>
+			<result column="nickname" property="nickname"/>
+		</association>
+	</resultMap>
+	
+	<select id="queryServerById" parameterType="String" resultMap="Server">
+		SELECT T.id, T.name, T.svn, T.version, T.username, T.mobile, T.email, T.nickname FROM TM_SERVERS T WHERE T.id = #{id}
+	</select>
+	<insert id="insertServer" parameterType="com.tiamaes.cloud.eureka.server.bean.Server">
+		INSERT INTO TM_SERVERS (id, name, version, svn, username, mobile, email, nickname)
+		VALUES (#{id}, #{name}, #{version}, #{svn}, #{principal.username}, #{principal.mobile}, #{principal.email}, #{principal.nickname})
+	</insert>
+	
+	<update id="updateServer" parameterType="com.tiamaes.cloud.eureka.server.bean.Server">
+		UPDATE TM_SERVERS SET
+			version = #{version},
+			svn = #{svn}
+			username = #{principal.username},
+			mobile = #{principal.mobile},
+			email = #{principal.email},
+			nickname = #{principal.nickname}
+		WHERE id = #{id}
+	</update>
+	<select id="queryExistsServerName" parameterType="string" resultType="boolean">
+		SELECT COUNT(1) FROM DUAL WHERE EXISTS(SELECT 1 FROM TM_SERVERS WHERE name = #{name})
+	</select>
+	<select id="queryAllServers" parameterType="com.tiamaes.cloud.eureka.server.bean.Server" resultMap="Server">
+		SELECT T.id, T.name, T.svn, T.version, T.username, T.mobile, T.email, T.nickname FROM TM_SERVERS T
+		ORDER BY T.name, T.version, T.username
+	</select>
+</mapper>

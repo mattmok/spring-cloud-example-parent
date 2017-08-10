@@ -18,7 +18,7 @@ require.config({
 require.onError = function (error) {
 	console.error(error);
     if (error.requireType === 'scripterror') {
-    	window.location.href = error.originalError.target.baseURI + 'index.html';
+//    	window.location.href = error.originalError.target.baseURI + 'index.html';
     }
 };
 require([ 'app', 'index' ], function() {

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Before;
@@ -115,6 +116,11 @@ public class RedisTest {
 		
 		Set<String> set1 = operator.members(key);
 		Set<String> set2 = operator.union(key2, set1);
+		
+		
+		for(Iterator<String> it = set1.iterator();it.hasNext();){
+			System.out.println(it.next());
+		}
 		
 		assertTrue(set2.size() == 1);
 		logger.debug(set2.toString());

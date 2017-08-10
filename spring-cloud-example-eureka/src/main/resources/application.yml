@@ -1,6 +1,8 @@
 server:
   port: 8761
 spring:
+  profiles:
+    active: oauth2
   application:
     name: spring-cloud-example-eureka
   datasource:
@@ -8,16 +10,19 @@ spring:
     username: root
     password: tmkj@zgb123
     driver-class-name: com.mysql.jdbc.Driver
-  thymeleaf:
-    prefix: classpath:/templates2/
 security:
   user:
     password: 123456
   ignored:
   - /eureka/**
 eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${server.port}
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
+    
   server:
     waitTimeInMsWhenSyncEmpty: 0
